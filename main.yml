@@ -1,0 +1,4 @@
+---
+
+- ansible.builtin.import_playbook: asterix-dbservers.yml
+- ansible.builtin.import_playbook: asterix-servers.yml

@@ -1,0 +1,55 @@
+- name: Install Nginx webserver
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+  become: yes
+  tags:
+    - nginx
+    - nginx_installation
+    - installation
+
+
+- name: Copy HTML Page to Nginx Document Root
+  ansible.builtin.copy:
+    src: files/nginx/index.html
+    dest: /var/www/html/index.html
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Create directory for ZIP File
+  ansible.builtin.file:
+    path: /var/www/html/downloads
+    state: directory
+    owner: www-data
+    group: www-data
+  become: yes
+
+- name: Copy Application ZIP File to Nginx Document Root
+  ansible.builtin.copy:
+    src: files/asterix/Inc-Asterix-Fim.zip
+    dest: /var/www/html/downloads/Inc-Asterix-Fim.zip
+    owner: www-data
+    group: www-data
+  become: yes
+
+
+- name: Remove default Nginx configuration
+  ansible.builtin.file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  become: yes
+
+- name: Copy custom Nginx configuration
+  ansible.builtin.copy:
+    src: files/nginx/nginx_site.conf
+    dest: /etc/nginx/conf.d/nginx_site.conf  # Replace the main nginx.conf file
+  become: yes
+  notify: 
+    - restart_nginx
+  tags:
+    - nginx
+    - nginx_configuration
+    - configuration
+    
+

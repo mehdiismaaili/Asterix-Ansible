@@ -1,0 +1,11 @@
+---
+- hosts: asterix-servers
+
+  roles:
+    - nginx
+
+  pre_tasks:
+    - ansible.builtin.import_tasks: common.yml
+
+  handlers:
+    - ansible.builtin.import_tasks: handlers.yml

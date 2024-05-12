@@ -1,0 +1,4 @@
+default_user: aster
+mysql_default_pass: hightech2024
+db_name: asterix_fim
+remote_host_ip: 51.68.49.205
